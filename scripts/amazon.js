@@ -90,4 +90,7 @@ allAddToCartButtons.forEach((button) => {
   });
 });
 
+window.addEventListener("load", () => {
+  cartImageNumber(cart);
+});
 

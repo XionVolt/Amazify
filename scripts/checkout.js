@@ -91,6 +91,14 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
     const { productId } = link.dataset;
     removeFromCart(productId);
     document.querySelector(`.js-cart-item-container-${productId}`).remove();
-    
+    checkOutQuantity();
   });
 });
+
+// this function will change the anchor tag quantity that is on top of checkout page(n items)
+function checkOutQuantity () {
+  document.querySelector(".return-to-home-link").innerText = cart.reduce ((total, product) => total + Number(product.quantity), 0) + " items";
+};
+window.addEventListener("load", () => {
+  checkOutQuantity ();
+})

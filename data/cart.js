@@ -27,3 +27,10 @@ export function addToCart (productId) {
         );
       }
   }
+export function removeFromCart (productId) {
+  cart.splice(
+    cart.findIndex((product) => product.productId === productId),
+    1
+  );
+};
+  

@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart , removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
@@ -89,10 +89,7 @@ document.querySelector(".js-order-summary").innerHTML = cartSummaryHtml;
 document.querySelectorAll(".js-delete-link").forEach((link) => {
   link.addEventListener("click", () => {
     const { productId } = link.dataset;
-    cart.splice(
-      cart.findIndex((product) => product.productId === productId),
-      1
-    );
+    removeFromCart(productId);
     document.querySelector(`.js-cart-item-container-${productId}`).remove();
     
   });

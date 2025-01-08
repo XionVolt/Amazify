@@ -17,7 +17,6 @@ export function addToCart (productId) {
           
         );
         saveToLocalStorage();
-        // console.log(c);
       }
   }
 export function removeFromCart (productId) {

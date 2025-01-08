@@ -1,6 +1,7 @@
 import { cart , removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
+import { updateCartQuantity } from "./utils/updateQuantity.js";
 
 let cartSummaryHtml = "";
 cart.forEach((cartItem) => {
@@ -91,14 +92,11 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
     const { productId } = link.dataset;
     removeFromCart(productId);
     document.querySelector(`.js-cart-item-container-${productId}`).remove();
-    checkOutQuantity();
+    document.querySelector(".return-to-home-link").innerText = updateCartQuantity(cart);
   });
 });
 
-// this function will change the anchor tag quantity that is on top of checkout page(n items)
-function checkOutQuantity () {
-  document.querySelector(".return-to-home-link").innerText = cart.reduce ((total, product) => total + Number(product.quantity), 0) + " items";
-};
+
 window.addEventListener("load", () => {
-  checkOutQuantity ();
+  document.querySelector(".return-to-home-link").innerText = updateCartQuantity(cart);
 })

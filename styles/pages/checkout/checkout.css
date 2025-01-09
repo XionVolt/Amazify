@@ -150,7 +150,10 @@
   margin-left: 0px;
   cursor: pointer;
 }
-
+.delivery-option-input:focus {
+  outline: none;
+  box-shadow: none;
+}
 .delivery-option-date {
   color: rgb(0, 118, 0);
   font-weight: 500;
@@ -208,4 +211,7 @@
 
   margin-top: 11px;
   margin-bottom: 15px;
+}
+.new-quantity-input {
+  width: 3.1em;
 }

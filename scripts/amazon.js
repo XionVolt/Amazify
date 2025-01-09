@@ -91,7 +91,12 @@ allAddToCartButtons.forEach((button) => {
 });
 
 window.addEventListener("load", () => {
-  document.querySelector(".cart-quantity")
-      .innerHTML = updateCartQuantity(cart);
+  if (cart.length === 0) {
+    document.querySelector(".cart-quantity").innerText = " ";
+  }
+  else {
+    document.querySelector(".cart-quantity")
+        .innerHTML = updateCartQuantity(cart);
+  }
 });
 

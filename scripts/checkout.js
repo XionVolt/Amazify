@@ -1,5 +1,5 @@
 // internal dependencies
-import { cart, removeFromCart } from "../data/cart.js";
+import { cart, removeFromCart , updateDeliveryOption} from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 import { updateCartQuantity } from "./utils/updateQuantity.js";
@@ -7,14 +7,20 @@ import { saveToLocalStorage } from "../data/cart.js";
 import { deliveryOptions } from "../data/deliveryOptions.js";
 // external dependencies
 import dayjs from "https://cdn.skypack.dev/dayjs";
+function renderOrderSummary () {
 let cartSummaryHtml = "";
 
 cart.forEach((cartItem) => {
   const { productId } = cartItem;
   let matchedProduct = products.find((product) => product.id === productId);
+
+    const deliveryOptionId = cartItem.deliveryOptionId;
+    let deliveryOption = deliveryOptions.find((option) => option.id === deliveryOptionId);
+    let deliveryDate = dayjs().add(deliveryOption.deliveryDays, "day").format("dddd, MMMM D");
+
   cartSummaryHtml += `          <div class="cart-item-container js-cart-item-container-${productId}">
             <div class="delivery-date js-delivery-date-${productId}">
-              ${updateDeliveryDateHTML(cartItem)}
+              Delivery Date: ${deliveryDate}
             </div>
 
             <div class="cart-item-details-grid">
@@ -63,7 +69,7 @@ function deliveryOptionsHTML(matchedProduct,cartItem) {
       .add(option.deliveryDays, "day")
       .format("dddd, MMMM D");
     let price = option.priceCents ? formatCurrency(option.priceCents) : "FREE";
-    deliveryOptionsHtml += `<label class="delivery-option" >
+    deliveryOptionsHtml += `<label class="delivery-option js-delivery-option" data-delivery-option-id="${option.id}" data-product-id="${matchedProduct.id}" >
                     <input type="radio" ${isChecked ? "checked" : ""}
                       class="delivery-option-input"
                       name="delivery-option-${matchedProduct.id}"  >
@@ -78,21 +84,6 @@ function deliveryOptionsHTML(matchedProduct,cartItem) {
                   </label>`;
   });
   return deliveryOptionsHtml;
-}
-function updateDeliveryDateHTML(cartItem) {
-  let deliveryOption = deliveryOptions.find(
-    (option) => cartItem.deliveryOptionId === option.id
-  );
-  let deliveryDate = dayjs().add(deliveryOption.deliveryDays, "day").format("dddd, MMMM D");
-    
-  if (!document.querySelector(`.js-delivery-date-${cartItem.productId}`)) {
-
-    
-      return deliveryDate;
-  }
-  else {
-    document.querySelector(`.js-delivery-date-${cartItem.productId}`).innerHTML = deliveryDate ;
-  }
 }
 
 document.querySelector(".js-order-summary").innerHTML = cartSummaryHtml;
@@ -156,42 +147,12 @@ document.querySelectorAll(".update-quantity-link").forEach((button) => {
     });
 });
 
-// all delivery options of document
-let allDeliveryOptions = document.querySelectorAll(".delivery-options");
-// adding event listener to all delivery options inside delivery-options-title
-allDeliveryOptions.forEach((option) => {
-  let { productId } = option.dataset;
-  let deliveryLabelParent = `.delivery-options[data-product-id="${option.dataset.productId}"]`;
-  let cartProduct = cart.find((product) => product.productId === productId);
-  document.querySelector(`${deliveryLabelParent} > label:nth-child(2)`).addEventListener(
-    "click",
-    () => {
-      cartProduct.deliveryOptionId =
-      '1';
-      saveToLocalStorage();
-      updateDeliveryDateHTML(cartProduct);
-
-    }  
-  );
-
-  document.querySelector(`${deliveryLabelParent} > label:nth-child(3)`).addEventListener(
-    "click",
-    () => {
-      cartProduct.deliveryOptionId =
-      '2';
-      saveToLocalStorage();
-      updateDeliveryDateHTML(cartProduct);
-
-    }  
-  );
-
-  document.querySelector(`${deliveryLabelParent} > label:nth-child(4)`).addEventListener(
-    "click",
-    () => {
-      cartProduct.deliveryOptionId =
-      '3';
-      saveToLocalStorage();
-      updateDeliveryDateHTML(cartProduct);
-    }  
-  );
+document.querySelectorAll(".js-delivery-option").forEach((option) => {
+  option.addEventListener("click", () => {
+    const { productId , deliveryOptionId} = option.dataset;
+    updateDeliveryOption(productId, deliveryOptionId);
+    renderOrderSummary();
+  });
 });
+}
+renderOrderSummary();

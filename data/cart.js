@@ -32,3 +32,8 @@ export function saveToLocalStorage () {
   localStorage.setItem("cart", JSON.stringify(cart));
   
 };
+
+export function updateDeliveryOption (productId,deliveryOptionId) {
+  cart.find((product) => product.productId === productId).deliveryOptionId = deliveryOptionId;
+  saveToLocalStorage();
+}

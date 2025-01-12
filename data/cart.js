@@ -11,7 +11,8 @@ export function addToCart (productId) {
         cart.push(
           {
             productId,
-            quantity: document.querySelector(`.js-quantity-selector-${productId}`).value
+            quantity: document.querySelector(`.js-quantity-selector-${productId}`).value,
+            deliveryOptionId : '1'
   
           }
           

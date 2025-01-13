@@ -1,7 +1,7 @@
 // Load the products from the products.js file
 import { cart , addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
-import { formatCurrency } from "./utils/money.js";
+import formatCurrency from "./utils/money.js";
 import { updateCartQuantity } from "./utils/updateQuantity.js";
 let productsGrid = document.querySelector(".js-products-grid");
 let productsHtml = "";

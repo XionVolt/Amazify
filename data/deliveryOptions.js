@@ -1,3 +1,4 @@
+import dayjs from "https://cdn.skypack.dev/dayjs";
 export const deliveryOptions = [
     {
       id: '1',
@@ -18,4 +19,8 @@ export const deliveryOptions = [
   
 export function getDeliveryOption(deliveryOptionId) {
   return deliveryOptions.find((option) => option.id === deliveryOptionId);
+}
+
+export function calculateDeliveryDate(addDays) {
+  return dayjs().add(addDays, "day").format("dddd, MMMM D");
 }

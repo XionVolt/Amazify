@@ -4,10 +4,11 @@ import { getProduct } from "../../data/products.js";
 import formatCurrency from ".././utils/money.js";
 import { updateCartQuantity } from "../utils/updateQuantity.js";
 import { saveToLocalStorage } from "../../data/cart.js";
-import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
+import { deliveryOptions, getDeliveryOption , calculateDeliveryDate } from "../../data/deliveryOptions.js";
 import { paymentSummary } from "./paymentSummary.js";
-// external dependencies
-import dayjs from "https://cdn.skypack.dev/dayjs";
+import renderCheckoutHeader from "./checkoutHeader.js";
+import updateButton from "./updateButton.js";
+
 export function renderOrderSummary() {
   let cartSummaryHtml = "";
 
@@ -16,9 +17,7 @@ export function renderOrderSummary() {
     const matchedProduct = getProduct(productId);
 
     const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
-    let deliveryDate = dayjs()
-      .add(deliveryOption.deliveryDays, "day")
-      .format("dddd, MMMM D");
+    let deliveryDate = calculateDeliveryDate(deliveryOption.deliveryDays);
 
     cartSummaryHtml += `          <div class="cart-item-container js-cart-item-container-${productId}">
             <div class="delivery-date js-delivery-date-${productId}">
@@ -65,9 +64,7 @@ export function renderOrderSummary() {
     let deliveryOptionsHtml = "";
     deliveryOptions.forEach((option) => {
       const isChecked = cartItem.deliveryOptionId === option.id;
-      let deliveryDate = dayjs()
-        .add(option.deliveryDays, "day")
-        .format("dddd, MMMM D");
+      let deliveryDate = calculateDeliveryDate(option.deliveryDays);
       let price = option.priceCents
         ? formatCurrency(option.priceCents)
         : "FREE";
@@ -96,64 +93,16 @@ export function renderOrderSummary() {
       removeFromCart(productId);
       renderOrderSummary();
       paymentSummary();
+      renderCheckoutHeader(cart);
     });
   });
 
   window.addEventListener("load", () => {
-    document.querySelector(".return-to-home-link").innerText =
-      updateCartQuantity(cart);
+    renderCheckoutHeader(cart);
   });
 
-  // callback of update button event listener
-  function upadateButtonLogic(button, productId) {
-    // getting the product id
-    let input = document.querySelector(`.js-new-quantity-input-${productId}`);
-    let quantityLabel = document.querySelector(
-      `.js-quantity-label-${productId}`
-    );
-    if (button.innerHTML.trim() === "Update") {
-      button.innerHTML = "Save";
-      quantityLabel.hidden = true;
-      input.hidden = false;
-      input.focus();
-    } else {
-      quantityLabel.hidden = false;
-      quantityLabel.innerHTML = input.value;
-      if (input.value == 0) {
-        removeFromCart(productId);
-        saveToLocalStorage();
-        document.querySelector(`.js-cart-item-container-${productId}`).remove();
-        document.querySelector(".return-to-home-link").innerText =
-          updateCartQuantity(cart);
-        paymentSummary();
-        return;
-      }
-      input.hidden = true;
-      button.innerHTML = "Update";
-
-      cart.find((product) => product.productId === productId).quantity =
-        input.value;
-      saveToLocalStorage();
-      document.querySelector(".return-to-home-link").innerText =
-        updateCartQuantity(cart);
-      paymentSummary();
-    }
-  }
-  //  setting event listener in all update buttons
-  document.querySelectorAll(".update-quantity-link").forEach((button) => {
-    const { productId } = button.dataset; // getting the product id
-    // adding event listener to all update buttons
-    button.addEventListener("click", () => {
-      upadateButtonLogic(button, productId);
-    });
-    document
-      .querySelector(`.js-cart-item-container-${productId}`)
-      .addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-          upadateButtonLogic(button, productId);
-        }
-      });
-  });
+  // update button functionality function , call
+  updateButton(removeFromCart,renderCheckoutHeader,paymentSummary,saveToLocalStorage,cart);
 
   document.querySelectorAll(".js-delivery-option").forEach((option) => {
     option.addEventListener("click", () => {

@@ -1,9 +1,8 @@
 // internal dependencies
-import { cart, removeFromCart, updateDeliveryOption } from "../../data/cart.js";
+import { cart } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import formatCurrency from ".././utils/money.js";
 import { updateCartQuantity } from "../utils/updateQuantity.js";
-import { saveToLocalStorage } from "../../data/cart.js";
 import { deliveryOptions, getDeliveryOption , calculateDeliveryDate } from "../../data/deliveryOptions.js";
 import { paymentSummary } from "./paymentSummary.js";
 import renderCheckoutHeader from "./checkoutHeader.js";
@@ -12,7 +11,7 @@ import updateButton from "./updateButton.js";
 export function renderOrderSummary() {
   let cartSummaryHtml = "";
 
-  cart.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
     const { productId } = cartItem;
     const matchedProduct = getProduct(productId);
 
@@ -85,29 +84,29 @@ export function renderOrderSummary() {
     });
     return deliveryOptionsHtml;
   }
-
   document.querySelector(".js-order-summary").innerHTML = cartSummaryHtml;
   document.querySelectorAll(".js-delete-link").forEach((link) => {
     link.addEventListener("click", () => {
       const { productId } = link.dataset;
-      removeFromCart(productId);
-      renderOrderSummary();
+      cart.removeFromCart(productId);
+      renderOrderSummary(); 
       paymentSummary();
-      renderCheckoutHeader(cart);
+      renderCheckoutHeader(cart.cartItems);
     });
   });
 
   window.addEventListener("load", () => {
-    renderCheckoutHeader(cart);
+    
+    renderCheckoutHeader(cart.cartItems);
   });
 
   // update button functionality function , call
-  updateButton(removeFromCart,renderCheckoutHeader,paymentSummary,saveToLocalStorage,cart);
+  updateButton(cart.removeFromCart,renderCheckoutHeader,paymentSummary,cart.saveToLocalStorage,cart);
 
   document.querySelectorAll(".js-delivery-option").forEach((option) => {
     option.addEventListener("click", () => {
       const { productId, deliveryOptionId } = option.dataset;
-      updateDeliveryOption(productId, deliveryOptionId);
+      cart.updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
       paymentSummary();
     });

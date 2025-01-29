@@ -8,11 +8,11 @@ export function paymentSummary() {
   let productPriceCents = 0;
   let shippingPriceCents = 0;
   let paymentSummaryHTML;
-  if (cart.length === 0) {
-    cart.push({ quantity: 0 });
-  }
-  cart.forEach((cartItem) => {
-    if (cart.length > 0 && cartItem.quantity) {
+    if (cart.cartItems.length === 0) {
+      cart.cartItems.push({ quantity: 0 });
+    }
+  cart.cartItems.forEach((cartItem) => {
+    if (cart.cartItems.length > 0 && cartItem.quantity) {
       const product = getProduct(cartItem.productId);
       productPriceCents += product.priceCents * cartItem.quantity;
       shippingPriceCents += getDeliveryOption(
@@ -32,7 +32,7 @@ export function paymentSummary() {
           </div>
 
           <div class="payment-summary-row">
-            <div>Items (${updateCartQuantity(cart)}):</div>
+            <div>Items (${updateCartQuantity(cart.cartItems)}):</div>
             <div class="payment-summary-money">$${formatCurrency(
               productPriceCents
             )}</div>

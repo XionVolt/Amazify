@@ -1,5 +1,5 @@
 // Load the products from the products.js file
-import { cart , addToCart } from "../data/cart.js";
+import { cart  } from "../data/cart.js";
 import { products } from "../data/products.js";
 import formatCurrency from "./utils/money.js";
 import { updateCartQuantity } from "./utils/updateQuantity.js";
@@ -81,22 +81,24 @@ allAddToCartButtons.forEach((button) => {
       clearTimeout(timer);
     });
     // pushing the product to the cart array
-    addToCart(productId);
+    cart.addToCart(productId);
     
     // updating the cart image number
     document.querySelector(".cart-quantity")
-        .innerHTML = updateCartQuantity(cart);
+        .innerHTML = updateCartQuantity(cart.cartItems);
 
   });
 });
 
 window.addEventListener("load", () => {
-  if (cart.length === 0) {
+  
+  if (cart.cartItems.length === 0) {
     document.querySelector(".cart-quantity").innerText = " ";
   }
   else {
     document.querySelector(".cart-quantity")
-        .innerHTML = updateCartQuantity(cart);
+    .innerHTML = updateCartQuantity(cart.cartItems);
+    
   }
 });
 

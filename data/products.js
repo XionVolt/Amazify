@@ -1,3 +1,5 @@
+import formatCurrency  from '../scripts/utils/money.js';
+
 class product {
   constructor (id, image, name, rating, priceCents ) {
     this.id = id;
@@ -6,6 +8,15 @@ class product {
     this.rating = rating;
     this.priceCents = priceCents; 
   }
+
+  getStatsUrl() {
+    return `images/ratings/rating-${this.rating.stars * 10}.png`
+  }
+
+  getPrice() {
+    return `$${formatCurrency(this.priceCents)}`;
+  }
+
 }
 
 export const products = [

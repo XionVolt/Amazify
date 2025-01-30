@@ -1,5 +1,11 @@
-export function getProduct(productId) {
-   return products.find(product => product.id === productId);
+class product {
+  constructor (id, image, name, rating, priceCents ) {
+    this.id = id;
+    this.image = image;
+    this.name = name;
+    this.rating = rating;
+    this.priceCents = priceCents; 
+  }
 }
 
 export const products = [
@@ -691,4 +697,10 @@ export const products = [
       "outdoor"
     ]
   }
-];
+].map((Item) => {
+  return new product(Item.id, Item.image, Item.name, Item.rating, Item.priceCents);
+});
+
+export function getProduct(productId) {
+   return products.find(product => product.id === productId);
+}

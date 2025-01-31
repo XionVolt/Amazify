@@ -4,10 +4,10 @@ class Cart {
     #localStorageKey
     constructor (localStorageKey) {
       this.#localStorageKey  = localStorageKey
-      this.loadFromStorage();
+      this.#loadFromStorage();
     }
     
-    loadFromStorage() {
+    #loadFromStorage() {
       this.cartItems =  localStorage.getItem(this.#localStorageKey) ? JSON.parse(localStorage.getItem(this.#localStorageKey)) : []
     }
       addToCart (productId) {

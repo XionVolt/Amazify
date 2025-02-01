@@ -4,7 +4,7 @@
 
 /* Some Important methods */
 
-// 1. describe block :  A describe block is a way to group tests in Jasmine. It takes two arguments: a string and a function. The string is the name of the test suite, and the function is the suite of tests.
+// 1. describe block :  A describe block is a way to group tests in Jasmine. It takes two arguments: a string and a function. The string is the name of the test suite, and the function is the suite of tests(test-cases).
 // 2. it block(Used to make Test Cases) : An it block is a way to make tests in Jasmine (we can make multiple tests in single describe block). It takes two arguments: a string and a function. The string is the name of the test, and the function is the test.
 
 
@@ -70,5 +70,6 @@ describe("money suit", () => {
     beforeAll(() => {
         // Code Inside beforeAll will run before all the test cases
     });
+    
 
 });

@@ -1,6 +1,6 @@
 import formatCurrency  from '../scripts/utils/money.js';
 
-class product {
+export class Product {
   constructor (id, image, name, rating, priceCents ) {
     this.id = id;
     this.image = image;
@@ -23,7 +23,7 @@ class product {
 }
 
 
-class Clothing extends product {
+export class Clothing extends Product {
   constructor (sizeChartLink,id, image, name, rating, priceCents) {
     super(id, image, name, rating, priceCents);
     this.sizeChartLink = sizeChartLink;
@@ -33,7 +33,7 @@ class Clothing extends product {
   }
 }
 
-class Appliance extends product {
+export class Appliance extends Product {
   constructor (instructionLink,warrantyLink,id, image, name, rating, priceCents) {
     super(id, image, name, rating, priceCents);
     this.instructionLink = instructionLink;
@@ -754,7 +754,7 @@ export const products = [
     return new Appliance(Item.instructionLink,Item.warrantyLink,Item.id, Item.image, Item.name, Item.rating, Item.priceCents);
   }
   else {
-    return new product(Item.id, Item.image, Item.name, Item.rating, Item.priceCents);
+    return new Product(Item.id, Item.image, Item.name, Item.rating, Item.priceCents);
   }
 });
 

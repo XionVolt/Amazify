@@ -1,13 +1,16 @@
 // Load the products from the products.js file
 import { cart  } from "../data/cart.js";
-import { products } from "../data/products.js";
-import formatCurrency from "./utils/money.js";
+import { products , loadProducts } from "../data/products.js";
 import { updateCartQuantity } from "./utils/updateQuantity.js";
 let productsGrid = document.querySelector(".js-products-grid");
 let productsHtml = "";
+
+loadProducts(renderProductsGrid);
+
+export function renderProductsGrid() {
+  
+
 products.forEach((product) => {
-  let div = document.createElement("div");
-  // const ratingStars = '';
   productsHtml += `
             <div class="product-container">
             <div class="product-image-container">
@@ -89,9 +92,11 @@ allAddToCartButtons.forEach((button) => {
     document.querySelector(".cart-quantity")
         .innerHTML = updateCartQuantity(cart.cartItems);
 
+    // updating the checkout header
   });
 });
 
+} 
 window.addEventListener("load", () => {
   
   if (cart.cartItems.length === 0) {
@@ -100,7 +105,5 @@ window.addEventListener("load", () => {
   else {
     document.querySelector(".cart-quantity")
     .innerHTML = updateCartQuantity(cart.cartItems);
-    
   }
 });
-

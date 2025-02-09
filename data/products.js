@@ -1,5 +1,6 @@
 import formatCurrency  from '../scripts/utils/money.js';
 
+
 export class Product {
   constructor (id, image, name, rating, priceCents ) {
     this.id = id;
@@ -23,6 +24,8 @@ export class Product {
 }
 
 
+// all classes
+
 export class Clothing extends Product {
   constructor (sizeChartLink,id, image, name, rating, priceCents) {
     super(id, image, name, rating, priceCents);
@@ -44,15 +47,18 @@ export class Appliance extends Product {
   }
   
 }
+
+// products array 
 export let products = []
 
 
-export function loadProducts(fun) {
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET','https://supersimplebackend.dev/products');
-  xhr.send()
-  xhr.addEventListener('load', () => {
-    products =  JSON.parse(xhr.response).map((Item) => {
+export function loadProducts(func) {
+  fetch('https://supersimplebackend.dev/products').then((response) => {
+    
+    return response.json(); 
+  })
+  .then((data) => {
+    products =  data.map((Item) => {
       if (Item.type === "clothing") {
         return new Clothing(Item.sizeChartLink, Item.id, Item.image, Item.name, Item.rating, Item.priceCents);
       }
@@ -63,12 +69,10 @@ export function loadProducts(fun) {
         return new Product(Item.id, Item.image, Item.name, Item.rating, Item.priceCents);
       }
     });
-    fun();
     
-    
-  })
-  
-  
+  }).then(() => {
+    func()
+  });
 }
 
 

@@ -2,7 +2,6 @@
 import { cart } from "../../data/cart.js";
 import { getProduct } from "../../data/products.js";
 import formatCurrency from ".././utils/money.js";
-import { updateCartQuantity } from "../utils/updateQuantity.js";
 import { deliveryOptions, getDeliveryOption , calculateDeliveryDate } from "../../data/deliveryOptions.js";
 import { paymentSummary } from "./paymentSummary.js";
 import renderCheckoutHeader from "./checkoutHeader.js";
@@ -14,7 +13,6 @@ export function renderOrderSummary() {
   cart.cartItems.forEach((cartItem) => {
     const { productId } = cartItem;
     const matchedProduct = getProduct(productId);
-
     const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
     let deliveryDate = calculateDeliveryDate(deliveryOption.deliveryDays);
 

@@ -5,11 +5,10 @@ import renderCheckoutHeader from "./checkout/checkoutHeader.js";
 import { cart } from "../data/cart.js";
 
 async function loadPage() {
-    await loadProducts(() => {});
+  await loadProducts(() => {});
 
-    renderOrderSummary();
-    paymentSummary();
-    
+  renderOrderSummary();
+  paymentSummary();
 }
-loadPage()
+loadPage();
 renderCheckoutHeader(cart.cartItems);

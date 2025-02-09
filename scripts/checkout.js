@@ -4,16 +4,12 @@ import { loadProducts } from "../data/products.js";
 import renderCheckoutHeader from "./checkout/checkoutHeader.js";
 import { cart } from "../data/cart.js";
 
-Promise.all([
-  new Promise((resolve) => {
-    loadProducts(() => {
-      resolve(); 
-    });
-  })
-])
-  .then(() => {
+async function loadPage() {
+    await loadProducts(() => {});
+
     renderOrderSummary();
     paymentSummary();
-  })
-
+    
+}
+loadPage()
 renderCheckoutHeader(cart.cartItems);

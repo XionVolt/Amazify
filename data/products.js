@@ -53,7 +53,7 @@ export let products = []
 
 
 export function loadProducts(func) {
-  fetch('https://supersimplebackend.dev/products').then((response) => {
+ const promise =  fetch('https://supersimplebackend.dev/products').then((response) => {
     
     return response.json(); 
   })
@@ -73,6 +73,8 @@ export function loadProducts(func) {
   }).then(() => {
     func()
   });
+
+  return promise
 }
 
 

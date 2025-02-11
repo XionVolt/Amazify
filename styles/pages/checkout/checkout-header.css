@@ -62,7 +62,7 @@
 
   font-size: 25px;
   font-weight: 500;
-
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   display: flex;
   justify-content: center;
 }

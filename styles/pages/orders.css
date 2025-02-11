@@ -14,11 +14,12 @@
 }
 
 .page-title {
-  font-weight: 700;
-  font-size: 26px;
+  font-weight: 900;
+  font-size: 30px;
   margin-bottom: 25px;
+  font-family:Arial, Helvetica, sans-serif;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
-
 .orders-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -28,6 +29,7 @@
 .order-header {
   background-color: rgb(240, 242, 242);
   border: 1px solid rgb(213, 217, 217);
+  font-family: 'Trebuchet MS',  'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 
   display: flex;
   align-items: center;
@@ -91,6 +93,7 @@
   border-top: none;
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
+  font-family: cursive;
 
   display: grid;
   grid-template-columns: 110px 1fr 220px;
@@ -140,6 +143,7 @@
   width: 140px;
   height: 36px;
   border-radius: 8px;
+  font-family:cursive;
 
   display: flex;
   align-items: center;
@@ -159,6 +163,7 @@
   width: 100%;
   font-size: 15px;
   padding: 8px;
+  font-family: cursive;
 }
 
 @media (max-width: 800px) {

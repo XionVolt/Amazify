@@ -34,7 +34,7 @@ Amazify is an ongoing project that aims to create a modern e-commerce interface 
 *   `styles/`: contains CSS files for styling and layout
 *   `images/`: contains images used in the project and those which will be used in the future
 *   `amazon.html`: the main entry point of the application
-
+*   `Tests`: Contain Tests to check if code working as expected . 
 
 ### Installation
 ---------------
@@ -67,10 +67,11 @@ This project is licensed under the MIT License.
 --------------
 
 *   Implement search functionality
-*   Make orders page interactive
+*   Make orders page interactive (**✓**)
 *   Make Track orders Functionality Interactive
-*   Improve performance and optimization
-
+*   Improve performance and optimization (**Continuous Process**)
+*   Implement Return order functionaly on orders page
+*   Implement Search query functionality on Tracking Page 
 ### Changelog
 -------------
 

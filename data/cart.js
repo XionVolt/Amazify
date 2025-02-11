@@ -12,6 +12,7 @@ class Cart {
     }
       addToCart (productId) {
         let existingProduct = this.cartItems.find((product) => product.productId === productId);
+        if (window.location.pathname==='/amazon.html') {
         if (existingProduct) {
               let { quantity: existingQuantity } = existingProduct;
               existingProduct.quantity = Number(existingQuantity) + Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
@@ -20,7 +21,7 @@ class Cart {
               this.cartItems.push(
                 {
                   productId,
-                  quantity: document.querySelector(`.js-quantity-selector-${productId}`).value,
+                  quantity: Number(document.querySelector(`.js-quantity-selector-${productId}`).value),
                   deliveryOptionId : '1'
                   
                 }
@@ -29,7 +30,25 @@ class Cart {
             }
             this.saveToLocalStorage();
         }
-  
+        else if (window.location.pathname==='/orders.html') {
+          if (existingProduct) {
+            let { quantity: existingQuantity } = existingProduct;
+            existingProduct.quantity+=1
+          
+        }
+
+      else {
+        this.cartItems.push(
+          {
+            productId,
+            quantity : 1,
+            deliveryOptionId :'1'
+          }
+        )
+      }
+        }
+        this.saveToLocalStorage();
+      }
         removeFromCart (productId) {
          this.cartItems.splice(
            this.cartItems.findIndex((product) => product.productId === productId),
@@ -50,7 +69,7 @@ class Cart {
 
 }
 
-export let cart = new Cart('cart-oop');
+export let  cart = new Cart('cart');
 
 
 // let businessCart = new Cart('cart-business');

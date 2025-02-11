@@ -65,7 +65,6 @@ products.forEach((product) => {
 });
 productsGrid.innerHTML += productsHtml;
 
-  // updating the cart image number function
 
 // all add to cart buttons
 let allAddToCartButtons = document.querySelectorAll(".js-add-to-cart");

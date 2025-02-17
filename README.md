@@ -67,8 +67,6 @@ This project is licensed under the MIT License.
 --------------
 
 *   Implement search functionality
-*   Make orders page interactive (**✓**)
-*   Make Track orders Functionality Interactive
 *   Improve performance and optimization (**Continuous Process**)
 *   Implement Return order functionaly on orders page
 *   Implement Search query functionality on Tracking Page 

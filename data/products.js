@@ -55,14 +55,11 @@ export class Appliance extends Product {
 // products array
 export let products = [];
 
-export function loadProducts(func) {
-  const promise = fetch("https://supersimplebackend.dev/products")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      products = data.map((Item) => {
-        if (Item.type === "clothing") {
+export async function loadProducts(func) {
+  const response = await fetch("https://supersimplebackend.dev/products")
+      const data = await response.json()
+    products = await data.map((Item) => {
+      if (Item.type === "clothing") {
           return new Clothing(
             Item.sizeChartLink,
             Item.id,
@@ -70,8 +67,7 @@ export function loadProducts(func) {
             Item.name,
             Item.rating,
             Item.priceCents
-          );
-        } else if (Item.type === "appliance") {
+      )} else if (Item.type === "appliance") {
           return new Appliance(
             Item.instructionLink,
             Item.warrantyLink,
@@ -91,16 +87,12 @@ export function loadProducts(func) {
           );
         }
       });
-    })
-    .then(() => {
       func();
-    })
-    .catch((error) => {
-      displayErrorMessage(error.message);
-    });
+    }
 
-  return promise;
-}
+
+
+
 
 //  for now we are styling error element in here , if we scale the project put it in css file
 export function displayErrorMessage(message) {

@@ -1,12 +1,13 @@
 import formatCurrency from "../scripts/utils/money.js";
 
 export class Product {
-  constructor(id, image, name, rating, priceCents) {
+  constructor(id, image, name, rating, priceCents,keywords) {
     this.id = id;
     this.image = image;
     this.name = name;
     this.rating = rating;
     this.priceCents = priceCents;
+    this.keywords = keywords
   }
 
   getStatsUrl() {
@@ -24,8 +25,8 @@ export class Product {
 // all classes
 
 export class Clothing extends Product {
-  constructor(sizeChartLink, id, image, name, rating, priceCents) {
-    super(id, image, name, rating, priceCents);
+  constructor(sizeChartLink, id, image, name, rating, priceCents,keywords) {
+    super(id, image, name, rating, priceCents,keywords);
     this.sizeChartLink = sizeChartLink;
   }
   extraInfo() {
@@ -41,9 +42,10 @@ export class Appliance extends Product {
     image,
     name,
     rating,
-    priceCents
+    priceCents,
+    keywords
   ) {
-    super(id, image, name, rating, priceCents);
+    super(id, image, name, rating, priceCents,keywords);
     this.instructionLink = instructionLink;
     this.warrantyLink = warrantyLink;
   }
@@ -59,6 +61,7 @@ export async function loadProducts(func) {
   const response = await fetch("https://supersimplebackend.dev/products")
       const data = await response.json()
     products = await data.map((Item) => {
+      // console.log(Item.keywords)
       if (Item.type === "clothing") {
           return new Clothing(
             Item.sizeChartLink,
@@ -66,7 +69,8 @@ export async function loadProducts(func) {
             Item.image,
             Item.name,
             Item.rating,
-            Item.priceCents
+            Item.priceCents,
+            Item.keywords
       )} else if (Item.type === "appliance") {
           return new Appliance(
             Item.instructionLink,
@@ -75,7 +79,9 @@ export async function loadProducts(func) {
             Item.image,
             Item.name,
             Item.rating,
-            Item.priceCents
+            Item.priceCents,
+            Item.keywords
+
           );
         } else {
           return new Product(
@@ -83,7 +89,8 @@ export async function loadProducts(func) {
             Item.image,
             Item.name,
             Item.rating,
-            Item.priceCents
+            Item.priceCents,
+            Item.keywords
           );
         }
       });

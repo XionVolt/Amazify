@@ -23,7 +23,7 @@ export function renderProductsGrid() {
         })
         .join("|"); // Append .* to each word and join with |
       let regex = new RegExp(regexPattern, "i"); // basically second argument contains flag in RegExp
-      if (!regex.test(product.name)) {
+      if (!regex.test(product.name) && !regex.test(product.keywords.join(''))) {
         return;
       }
     }

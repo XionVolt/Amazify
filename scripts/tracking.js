@@ -27,7 +27,6 @@ if (window.location.pathname === "/tracking.html") {
     const currentTime = Number(new dayjs().format('dddd, MMMM D').split(' ').at(-1))
     const orderTime =  Number(SearchedOrder.orderTime.split('T')[0].split('-').at(-1));
     const DeliveryTime = Number(SearchedProduct.estimatedDeliveryTime.split('T')[0].split('-').at(-1));
-
     const Progress_bar_progress = ((currentTime - orderTime)  / (DeliveryTime - orderTime)) * 100
 
     let contentToAdd = `

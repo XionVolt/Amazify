@@ -167,3 +167,13 @@
   opacity: 0;
   transition: opacity 0.2s linear;
 }
+
+.products-grid .empty-results-message {
+  padding-left: 10px;
+  padding-top: 10px;
+  grid-column: 1/7;
+  font-size:large;
+  text-align:center;
+  font-family:monospace;
+
+}

@@ -66,7 +66,7 @@ This project is licensed under the MIT License.
 ### To-Do List
 --------------
 
-*   Implement search functionality
+*   Implement search functionality(Implemented but in future we will use Ai for make it exponentially robust !!)
 *   Improve performance and optimization (**Continuous Process**)
 *   Implement Return order functionaly on orders page
 *   Implement Search query functionality on Tracking Page 
